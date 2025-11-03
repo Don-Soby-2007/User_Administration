@@ -30,6 +30,10 @@
                 <button type="submit" class="btn-login">LOGIN</button>
             </form>
             
+            {% if error %}
+                <div class="password-error">{{ error }}</div>
+            {% endif %}
+
             <div class="separator"></div>
             
             <a href='{% url "signup" %}' class="btn-register">REGISTER</a>

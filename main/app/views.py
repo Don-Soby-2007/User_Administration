@@ -2,13 +2,28 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
 from django.contrib.auth.models import User
-
+from django.contrib.auth import login as auth_login
 
 # Create your views here.
 
 
 @never_cache
 def login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = User.objects.filter(username=username).first()
+
+        if user and user.check_password(password):
+
+            auth_login(request, user)
+            return render(request, 'dashboard.html')
+
+        else:
+
+            return render(request, 'login.html', {'error': 'Invalid username or password'})
+
     return render(request, 'login.html')
 
 
