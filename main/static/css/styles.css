@@ -447,6 +447,7 @@ body {
 }
 
 /* Admin Management Theme - Black to Red Gradient */
+/* Admin Management Theme - Black to Red Gradient */
 .admin-mgmt-bg {
     background: linear-gradient(180deg, #000000 0%, #23060a 35%, #3b0a12 65%, #8b0f1a 100%) !important;
 }
@@ -521,11 +522,24 @@ body {
     padding: 14px 16px;
     color: #f0f0f0;
     text-align: left;
+    vertical-align: middle;
 }
 
 .users-table th {
     font-weight: 700;
     letter-spacing: 0.5px;
+}
+
+/* Column sizing and alignment after removing password column */
+.users-table th:nth-child(1),
+.users-table td:nth-child(1) {
+    width: 70px;
+}
+
+.users-table th:last-child,
+.users-table td:last-child {
+    text-align: right;
+    width: 180px;
 }
 
 .users-table tbody tr {
@@ -577,4 +591,25 @@ body {
 /* Make page scrollable for longer tables */
 body.admin-mgmt {
     overflow: auto;
+}
+
+/* Admin search bar */
+.admin-mgmt-search {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.admin-mgmt-search .input-group {
+    height: 44px;
+}
+
+.search-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    padding: 0 16px;
+    height: 44px;
 }

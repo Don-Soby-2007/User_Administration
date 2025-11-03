@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href='{% static "css/styles.css" %}'>
     <script>
         function goLogin(){ window.location.href='login.html'; }
         function createUser(){ alert('Create User clicked'); }
@@ -28,13 +28,20 @@
             <h1 class="login-header admin-header" style="margin-bottom: 6px;">Admin Panel</h1>
             <p class="welcome-message" style="margin-bottom:18px;">Manage users below</p>
 
+            <div class="admin-mgmt-search">
+                <div class="input-group admin-input" style="flex:1;">
+                    <span class="input-icon">🔍</span>
+                    <input type="text" id="user-search" placeholder="Search users...">
+                </div>
+                <button type="button" class="btn-edit search-btn" title="Search">🔍</button>
+            </div>
+
             <table class="users-table">
                 <thead>
                     <tr>
                         <th>ID</th>
                         <th>Username</th>
                         <th>Email</th>
-                        <th>Password</th>
                         <th style="text-align:right;">Actions</th>
                     </tr>
                 </thead>
@@ -43,7 +50,6 @@
                         <td>1</td>
                         <td>admin</td>
                         <td>admin@example.com</td>
-                        <td>••••••••</td>
                         <td>
                             <div class="table-actions">
                                 <button class="btn-edit" onclick="editUser(1)">Edit</button>
@@ -55,7 +61,6 @@
                         <td>2</td>
                         <td>johndoe</td>
                         <td>john@demo.com</td>
-                        <td>••••••••</td>
                         <td>
                             <div class="table-actions">
                                 <button class="btn-edit" onclick="editUser(2)">Edit</button>
@@ -70,5 +75,3 @@
     
 </body>
 </html>
-
-
