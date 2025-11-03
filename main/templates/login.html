@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Login</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="background">
+        <div class="geometric-pattern"></div>
+    </div>
+    
+    <div class="login-container">
+        <div class="login-panel">
+            <h1 class="login-header">MEMBER LOGIN</h1>
+            
+            <form class="login-form">
+                <div class="input-group">
+                    <span class="input-icon">👤</span>
+                    <input type="text" id="username" name="username" placeholder="Username" required>
+                </div>
+                
+                <div class="input-group">
+                    <span class="input-icon">🔒</span>
+                    <input type="password" id="password" name="password" placeholder="Password" required>
+                </div>
+                
+                <button type="submit" class="btn-login">LOGIN</button>
+            </form>
+            
+            <div class="separator"></div>
+            
+            <a href='{% url "signup" %}' class="btn-register">REGISTER</a>
+        </div>
+    </div>
+</body>
+</html>

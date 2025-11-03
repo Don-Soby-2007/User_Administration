@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body class="dashboard-theme">
+    <div class="background dashboard-bg">
+        <div class="geometric-pattern dashboard-pattern"></div>
+    </div>
+    
+    <!-- Logout Button -->
+    <button class="logout-btn" onclick = window.location.href='{% url "login" %}'>LOGOUT</button>
+    
+    <div class="login-container">
+        <div class="login-panel dashboard-panel">
+            <h1 class="login-header dashboard-header">Welcome!</h1>
+            <p class="welcome-message">You have successfully logged in.</p>
+        </div>
+    </div>
+</body>
+</html>

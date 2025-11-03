@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body class="admin-theme">
+    <div class="background admin-bg">
+        <div class="geometric-pattern admin-pattern"></div>
+    </div>
+    
+    <div class="login-container">
+        <div class="login-panel admin-panel">
+            <h1 class="login-header admin-header">ADMIN LOGIN</h1>
+            
+            <form class="login-form">
+                <div class="input-group admin-input">
+                    <span class="input-icon">👤</span>
+                    <input type="text" id="admin-username" name="username" placeholder="Username" required>
+                </div>
+                
+                <div class="input-group admin-input">
+                    <span class="input-icon">🔒</span>
+                    <input type="password" id="admin-password" name="password" placeholder="Password" required>
+                </div>
+                
+                <button type="submit" class="btn-login admin-btn-login">LOGIN</button>
+            </form>
+            
+            <div class="separator"></div>
+            
+            <a href='{% url "login" %}' class="btn-register admin-btn-user-login">USER LOGIN</a>
+        </div>
+    </div>
+</body>
+</html>
