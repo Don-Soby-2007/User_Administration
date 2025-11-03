@@ -16,7 +16,7 @@
         <div class="login-panel">
             <h1 class="login-header">MEMBER SIGNUP</h1>
             
-            <form class="login-form">
+            <form method="post" class="login-form">
                 <div class="input-group">
                     <span class="input-icon">👤</span>
                     <input type="text" id="username" name="username" placeholder="Username" required>
@@ -43,7 +43,7 @@
             {% if error %}
                 <div class="password-error">{{ error }}</div>
             {% endif %}
-            
+
             <div class="separator"></div>
 
             <div class="forgot-password">
@@ -53,6 +53,5 @@
         </div>
     </div>    
                 
-    <script src="{% static 'js/script.js' %}"></script>
 </body>
 </html>

@@ -1,24 +1,24 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.cache import never_cache
-from django.contrib.auth.models import User
-from django.contrib.auth import login as auth_login
+from django.views.decorators.cache import never_cache, cache_control
+from .models import User
+from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
 
 
 @never_cache
-def login(request):
+def login_view(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
 
-        user = User.objects.filter(username=username).first()
+        user = authenticate(request, username=username, password=password)
 
-        if user and user.check_password(password):
+        if user is not None and user.is_active:
 
-            auth_login(request, user)
-            return render(request, 'dashboard.html')
+            login(request, user)
+            return redirect('dashboard')
 
         else:
 
@@ -28,11 +28,15 @@ def login(request):
 
 
 @never_cache
-def signup(request):
+def signup_view(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
+        confirm_password = request.POST.get('confirm_password')
         email = request.POST.get('email')
+
+        if password != confirm_password:
+            return render(request, 'signup.html', {'error': 'Passwords do not match'})
 
         if User.objects.filter(username=username).exists():
             return render(request, 'signup.html', {'error': 'Username already exists'})
@@ -43,19 +47,19 @@ def signup(request):
         user = User.objects.create_user(username=username, password=password, email=email)
         user.save()
 
-        return render(request, 'login.html')
+        return render(request, 'dashboard.html')
     else:
         return render(request, 'signup.html')
 
 
 @never_cache
-def admin_login(request):
+def admin_login_view(request):
     return render(request, 'admin.html')
 
 
-@login_required
-@never_cache
-def dashboard(request):
+@login_required(login_url='login')
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+def dashboard_view(request):
     if request.user.is_authenticated:
         return render(request, 'dashboard.html')
     else:
@@ -64,5 +68,11 @@ def dashboard(request):
 
 @login_required
 @never_cache
-def admindashboard(request):
+def admindashboard_view(request):
     return render(request, 'admin-dashboard.html')
+
+
+@login_required
+def logout_view(request):
+    logout(request)
+    return redirect('login')
