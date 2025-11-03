@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
+from django.contrib.auth.models import User
 
 
 # Create your views here.
@@ -11,17 +12,25 @@ def login(request):
     return render(request, 'login.html')
 
 
-
 @never_cache
 def signup(request):
-    if user.is_authenticated:
-        return render(request, 'dashboard.html')
     if request.method == 'POST':
-        if form.is_valid():
-            form.save()
-            return redirect('login')
-    return render(request, 'signup.html')
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        email = request.POST.get('email')
 
+        if User.objects.filter(username=username).exists():
+            return render(request, 'signup.html', {'error': 'Username already exists'})
+
+        if User.objects.filter(email=email).exists():
+            return render(request, 'signup.html', {'error': 'Email already exists'})
+
+        user = User.objects.create_user(username=username, password=password, email=email)
+        user.save()
+
+        return render(request, 'login.html')
+    else:
+        return render(request, 'signup.html')
 
 
 @never_cache

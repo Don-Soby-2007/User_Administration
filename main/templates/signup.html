@@ -42,12 +42,17 @@
             
             <div class="separator"></div>
             
+            {% if error %}
+                <div class="password-error">{{ error }}</div>
+            {% endif %}
+
             <div class="forgot-password">
                 <span class="forgot-text">Already have an account?</span>
                 <a href='{% url "login" %}' class="click-here">Login Here</a>
             </div>
         </div>
-    </div>
+    </div>    
+                
     <script src="{% static 'js/script.js' %}"></script>
 </body>
 </html>
