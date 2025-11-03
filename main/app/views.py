@@ -22,3 +22,7 @@ def admin_login(request):
 
 def dashboard(request):
     return render(request, 'dashboard.html')
+
+
+def admindashboard(request):
+    return render(request, 'admin-dashboard.html')

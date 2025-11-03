@@ -1,0 +1,74 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script>
+        function goLogin(){ window.location.href='login.html'; }
+        function createUser(){ alert('Create User clicked'); }
+        function editUser(id){ alert('Edit user ' + id); }
+        function deleteUser(id){ alert('Delete user ' + id); }
+    </script>
+    
+</head>
+<body class="admin-mgmt">
+    <div class="background admin-mgmt-bg">
+        <div class="geometric-pattern admin-mgmt-pattern"></div>
+    </div>
+
+    <a href="#" class="admin-mgmt-create" onclick="createUser()">CREATE USER</a>
+    <button class="logout-btn admin-mgmt-logout" onclick="goLogin()">LOGOUT</button>
+
+    <div class="login-container">
+        <div class="login-panel admin-mgmt-panel">
+            <h1 class="login-header admin-header" style="margin-bottom: 6px;">Admin Panel</h1>
+            <p class="welcome-message" style="margin-bottom:18px;">Manage users below</p>
+
+            <table class="users-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Password</th>
+                        <th style="text-align:right;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>admin</td>
+                        <td>admin@example.com</td>
+                        <td>••••••••</td>
+                        <td>
+                            <div class="table-actions">
+                                <button class="btn-edit" onclick="editUser(1)">Edit</button>
+                                <button class="btn-delete" onclick="deleteUser(1)">Delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>johndoe</td>
+                        <td>john@demo.com</td>
+                        <td>••••••••</td>
+                        <td>
+                            <div class="table-actions">
+                                <button class="btn-edit" onclick="editUser(2)">Edit</button>
+                                <button class="btn-delete" onclick="deleteUser(2)">Delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+</body>
+</html>
+
+

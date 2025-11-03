@@ -445,3 +445,136 @@ body {
         font-size: 12px;
     }
 }
+
+/* Admin Management Theme - Black to Red Gradient */
+.admin-mgmt-bg {
+    background: linear-gradient(180deg, #000000 0%, #23060a 35%, #3b0a12 65%, #8b0f1a 100%) !important;
+}
+
+.admin-mgmt-pattern::before {
+    background:
+        radial-gradient(circle at 20% 30%, rgba(220, 53, 69, 0.15) 2px, transparent 2px),
+        radial-gradient(circle at 80% 70%, rgba(220, 53, 69, 0.15) 2px, transparent 2px),
+        radial-gradient(circle at 50% 50%, rgba(220, 53, 69, 0.1) 3px, transparent 3px),
+        radial-gradient(circle at 10% 90%, rgba(220, 53, 69, 0.12) 2px, transparent 2px),
+        radial-gradient(circle at 90% 10%, rgba(220, 53, 69, 0.12) 2px, transparent 2px) !important;
+}
+
+.admin-mgmt-pattern::after {
+    border: 1px solid rgba(220, 53, 69, 0.3) !important;
+}
+
+.admin-mgmt-panel {
+    background: linear-gradient(180deg, rgba(20, 20, 20, 0.9) 0%, rgba(70, 10, 16, 0.9) 60%, rgba(139, 15, 26, 0.9) 100%) !important;
+    max-width: 900px;
+    width: 95%;
+}
+
+/* Header action buttons */
+.admin-mgmt-create {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background-color: #dc3545;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 18px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 100;
+    text-decoration: none;
+}
+
+.admin-mgmt-create:hover {
+    background-color: #e04555;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(220, 53, 69, 0.35);
+}
+
+.admin-mgmt-create:active {
+    transform: translateY(0);
+}
+
+.admin-mgmt-logout {
+    border-color: #dc3545;
+}
+
+/* Users table */
+.users-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.users-table thead {
+    background: linear-gradient(90deg, #5a0e17, #8b0f1a);
+}
+
+.users-table th,
+.users-table td {
+    padding: 14px 16px;
+    color: #f0f0f0;
+    text-align: left;
+}
+
+.users-table th {
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.users-table tbody tr {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.users-table tbody tr:hover {
+    background: rgba(220, 53, 69, 0.08);
+}
+
+.table-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.btn-edit,
+.btn-delete {
+    border: none;
+    border-radius: 6px;
+    padding: 9px 14px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.btn-edit {
+    background: #ff9f43;
+    color: #1a1a1a;
+}
+
+.btn-edit:hover {
+    background: #ffb766;
+    transform: translateY(-1px);
+}
+
+.btn-delete {
+    background: #dc3545;
+    color: #ffffff;
+}
+
+.btn-delete:hover {
+    background: #e04555;
+    transform: translateY(-1px);
+}
+
+/* Make page scrollable for longer tables */
+body.admin-mgmt {
+    overflow: auto;
+}
