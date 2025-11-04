@@ -31,7 +31,7 @@
             <form methode='get'action="{% url 'admin_dashboard' %}" class="admin-mgmt-search" >
                 <div class="input-group admin-input" style="flex:1;">
                     <span class="input-icon">🔍</span>
-                    <input type="text" name="q" id="user-search" placeholder="Search users...">
+                    <input type="text" name="q" value="{{query}}" id="user-search" placeholder="Search users...">
                 </div>
                 <button type="submit" class="btn-edit search-btn" title="Search">🔍</button>
             </form>
