@@ -10,6 +10,9 @@ from django.contrib import messages
 
 @never_cache
 def login_view(request):
+    if request.user.is_authenticated:
+        return redirect('dashboard')
+
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -30,6 +33,9 @@ def login_view(request):
 
 @never_cache
 def signup_view(request):
+    if request.user.is_authenticated:
+        return redirect('dashboard')
+
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -58,13 +64,37 @@ def signup_view(request):
 
 @never_cache
 def admin_login_view(request):
+    if request.user.is_authenticated:
+        if request.user.is_admin:
+            return redirect('admin_dashboard')
+        return redirect('login')
+
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None and user.is_active and user.is_admin:
+
+            login(request, user)
+            return render(request, 'admin-dashboard.html')
+
+        else:
+            return render(request, 'admin.html', {'error': 'Invalid admin credentials'})
+
     return render(request, 'admin.html')
 
 
 @login_required(login_url='login')
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@never_cache
 def dashboard_view(request):
     if request.user.is_authenticated:
+
+        if request.user.is_admin:
+            return render(request, 'admin-dashboard.html')
+
         return render(request, 'dashboard.html')
     else:
         return render(request, 'login.html')
@@ -73,7 +103,10 @@ def dashboard_view(request):
 @login_required
 @never_cache
 def admindashboard_view(request):
-    return render(request, 'admin-dashboard.html')
+    if request.user.is_authenticated and request.user.is_admin:
+        return render(request, 'admin-dashboard.html')
+    else:
+        return redirect('admin_login')
 
 
 @login_required

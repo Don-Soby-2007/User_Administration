@@ -21,7 +21,7 @@
     </div>
 
     <a href="#" class="admin-mgmt-create" onclick="createUser()">CREATE USER</a>
-    <button class="logout-btn admin-mgmt-logout" onclick="goLogin()">LOGOUT</button>
+    <button class="logout-btn admin-mgmt-logout" onclick = window.location.href='{% url "logout" %}'>LOGOUT</button>
 
     <div class="login-container">
         <div class="login-panel admin-mgmt-panel">
