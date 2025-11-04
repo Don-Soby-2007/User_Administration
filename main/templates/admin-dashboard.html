@@ -28,13 +28,13 @@
             <h1 class="login-header admin-header" style="margin-bottom: 6px;">Admin Panel</h1>
             <p class="welcome-message" style="margin-bottom:18px;">Manage users below</p>
 
-            <div class="admin-mgmt-search">
+            <form methode='get'action="{% url 'admin_dashboard' %}" class="admin-mgmt-search" >
                 <div class="input-group admin-input" style="flex:1;">
                     <span class="input-icon">🔍</span>
-                    <input type="text" id="user-search" placeholder="Search users...">
+                    <input type="text" name="q" id="user-search" placeholder="Search users...">
                 </div>
-                <button type="button" class="btn-edit search-btn" title="Search">🔍</button>
-            </div>
+                <button type="submit" class="btn-edit search-btn" title="Search">🔍</button>
+            </form>
 
             <table class="users-table">
                 <thead>

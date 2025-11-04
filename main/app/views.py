@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache, cache_control
 from .models import User
+from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
@@ -104,8 +105,16 @@ def admindashboard_view(request):
     if not request.user.is_admin:
         return redirect('login')
 
+    query = request.GET.get('q', '')
     users = User.objects.filter(is_admin=False, is_active=True).order_by('-id')
-    context = {'users': users}
+
+    if query:
+        users = users.filter(Q(username__icontains=query) | Q(email__icontains=query))
+
+    context = {
+        'users': users,
+        'query': query,
+        }
 
     return render(request, 'admin-dashboard.html', context)
 
