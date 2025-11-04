@@ -105,8 +105,8 @@ def dashboard_view(request):
 def admindashboard_view(request):
     if request.user.is_authenticated and request.user.is_admin:
         users = User.objects.filter(is_admin=False, is_active=True).order_by('-id')
-        dataset = {'users': users}
-        return render(request, 'admin-dashboard.html', dataset)
+        context = {'users': users}
+        return render(request, 'admin-dashboard.html', context)
     else:
         return redirect('admin_login')
 
