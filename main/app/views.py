@@ -64,10 +64,8 @@ def signup_view(request):
 
 @never_cache
 def admin_login_view(request):
-    if request.user.is_authenticated:
-        if request.user.is_admin:
-            return redirect('admin_dashboard')
-        return redirect('login')
+    if request.user.is_authenticated and request.user.is_admin:
+        return redirect('admin_dashboard')
 
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -78,7 +76,7 @@ def admin_login_view(request):
         if user is not None and user.is_active and user.is_admin:
 
             login(request, user)
-            return render(request, 'admin-dashboard.html')
+            return redirect('admin_dashboard')
 
         else:
             return render(request, 'admin.html', {'error': 'Invalid admin credentials'})
