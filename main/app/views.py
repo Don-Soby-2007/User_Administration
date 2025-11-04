@@ -100,11 +100,13 @@ def dashboard_view(request):
         return render(request, 'login.html')
 
 
-@login_required
+@login_required(login_url='admin_login')
 @never_cache
 def admindashboard_view(request):
     if request.user.is_authenticated and request.user.is_admin:
-        return render(request, 'admin-dashboard.html')
+        users = User.objects.filter(is_admin=False, is_active=True).order_by('-id')
+        dataset = {'users': users}
+        return render(request, 'admin-dashboard.html', dataset)
     else:
         return redirect('admin_login')
 

@@ -530,12 +530,6 @@ body {
     letter-spacing: 0.5px;
 }
 
-/* Column sizing and alignment after removing password column */
-.users-table th:nth-child(1),
-.users-table td:nth-child(1) {
-    width: 70px;
-}
-
 .users-table th:last-child,
 .users-table td:last-child {
     text-align: right;
