@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache, cache_control
 from .models import User
 from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
 
 # Create your views here.
 
@@ -32,22 +33,25 @@ def signup_view(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-        confirm_password = request.POST.get('confirm_password')
+        confirm_password = request.POST.get('confirm-password')
         email = request.POST.get('email')
 
         if password != confirm_password:
-            return render(request, 'signup.html', {'error': 'Passwords do not match'})
+            messages.error(request, "Passwords do not match")
+            return redirect('signup')
 
         if User.objects.filter(username=username).exists():
-            return render(request, 'signup.html', {'error': 'Username already exists'})
+            messages.error(request, "Username already exists")
+            return redirect('signup')
 
         if User.objects.filter(email=email).exists():
-            return render(request, 'signup.html', {'error': 'Email already exists'})
+            messages.error(request, "Email already exists")
+            return redirect('signup')
 
-        user = User.objects.create_user(username=username, password=password, email=email)
-        user.save()
+        user = User.objects.create_user(username=username, email=email, password=password)
+        login(request, user)
 
-        return render(request, 'dashboard.html')
+        return redirect('dashboard')
     else:
         return render(request, 'signup.html')
 

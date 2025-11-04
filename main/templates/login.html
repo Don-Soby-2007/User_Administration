@@ -17,6 +17,7 @@
             <h1 class="login-header">MEMBER LOGIN</h1>
             
             <form method="post" class="login-form">
+                {% csrf_token %}
                 <div class="input-group">
                     <span class="input-icon">👤</span>
                     <input type="text" id="username" name="username" placeholder="Username" required>

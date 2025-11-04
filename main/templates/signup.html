@@ -17,6 +17,7 @@
             <h1 class="login-header">MEMBER SIGNUP</h1>
             
             <form method="post" class="login-form">
+                {% csrf_token %}
                 <div class="input-group">
                     <span class="input-icon">👤</span>
                     <input type="text" id="username" name="username" placeholder="Username" required>
@@ -40,8 +41,10 @@
                 <button type="submit" class="btn-register">SIGN UP</button>
             </form>
             
-            {% if error %}
-                <div class="password-error">{{ error }}</div>
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="password-error">{{ message }}</div>
+                {% endfor %}
             {% endif %}
 
             <div class="separator"></div>
@@ -52,6 +55,6 @@
             </div>
         </div>
     </div>    
-                
+        <script src="{% static 'js/script.js '%}"></script>    
 </body>
 </html>
