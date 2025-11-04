@@ -90,10 +90,10 @@ def admin_login_view(request):
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @never_cache
 def dashboard_view(request):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and request.user.is_active:
 
         if request.user.is_admin:
-            return render(request, 'admin-dashboard.html')
+            return redirect('admin_dashboard')
 
         return render(request, 'dashboard.html')
     else:
@@ -103,12 +103,13 @@ def dashboard_view(request):
 @login_required(login_url='admin_login')
 @never_cache
 def admindashboard_view(request):
-    if request.user.is_authenticated and request.user.is_admin:
-        users = User.objects.filter(is_admin=False, is_active=True).order_by('-id')
-        context = {'users': users}
-        return render(request, 'admin-dashboard.html', context)
-    else:
-        return redirect('admin_login')
+    if not request.user.is_admin:
+        return redirect('login')
+
+    users = User.objects.filter(is_admin=False, is_active=True).order_by('-id')
+    context = {'users': users}
+
+    return render(request, 'admin-dashboard.html', context)
 
 
 @login_required
