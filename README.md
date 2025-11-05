@@ -6,12 +6,9 @@ Welcome to **User Administration** – a robust and flexible application primari
 
 - User Registration and Signup
 - Login & Secure Authentication
-- Role-based Access Control (RBAC)
-- Password Management
 - Profile Editing
 - Admin Dashboard
 - Responsive UI with CSS & HTML
-- RESTful API Endpoints (if applicable)
 - Extensible and modular codebase
 
 ## 🛠️ Tech Stack
@@ -53,7 +50,7 @@ Welcome to **User Administration** – a robust and flexible application primari
 
 - Access the web interface at `http://localhost:5000` (or your configured port).
 - Register a new user or log in with existing credentials.
-- Manage users, roles, and permissions through the admin dashboard.
+- Manage users and permissions through the admin dashboard.
 
 ## 👤 Contributing
 
@@ -67,7 +64,7 @@ Contributions are welcome! Please open pull requests or issues to suggest featur
 
 ## 📝 License
 
-Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
+Distributed under the MIT License. It is an open-source project.
 
 ## 📫 Contact
 
@@ -76,4 +73,4 @@ For questions or support, please contact:
 
 ---
 
-> **Note:** This project is under active development. Features will be updated frequently.
+> **Note:** This project is under active development. Feel free to add your contributions.
