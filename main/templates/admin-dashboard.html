@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel</title>
     <link rel="stylesheet" href='{% static "css/styles.css" %}'>
+    <link rel="stylesheet" href='{% static "css/modal.css" %}'>
     <script>
-        function goLogin(){ window.location.href='login.html'; }
         function createUser(){ alert('Create User clicked'); }
         function editUser(id){ alert('Edit user ' + id); }
         function deleteUser(id){ alert('Delete user ' + id); }
@@ -20,7 +20,7 @@
         <div class="geometric-pattern admin-mgmt-pattern"></div>
     </div>
 
-    <a href="#" class="admin-mgmt-create" onclick="createUser()">CREATE USER</a>
+    <a href="#" class="admin-mgmt-create" onclick=openCreateUser()>CREATE USER</a>
     <button class="logout-btn admin-mgmt-logout" onclick = window.location.href='{% url "logout" %}'>LOGOUT</button>
 
     <div class="login-container">
@@ -65,6 +65,47 @@
             </table>
         </div>
     </div>
+
+    <!-- Create User Modal -->
+    <div id="createUserModal" class="cu-modal-overlay" onclick="if(event.target===this) closeCreateUser();">
+        <div class="cu-modal">
+            <div class="cu-modal-header">
+                <h2>Create User</h2>
+                <button class="cu-close" onclick="closeCreateUser()">×</button>
+            </div>
+            <form class="cu-form" method="post" id='createUserForm'>
+                {% csrf_token %}
+                <div class="input-group admin-input">
+                    <span class="input-icon">👤</span>
+                    <input type="text" placeholder="Username" name="username" required>
+                </div>
+                <div class="input-group admin-input">
+                    <span class="input-icon">📧</span>
+                    <input type="email" placeholder="Email" name="email" required>
+                </div>
+                <div class="input-group admin-input">
+                    <span class="input-icon">🔒</span>
+                    <input type="password" placeholder="Password" name="password" required>
+                </div>
+                <div class="input-group admin-input">
+                    <span class="input-icon">🔒</span>
+                    <input type="password" placeholder="Confirm Password" name="confirm_password" required>
+                </div>
+                <div>
+                    <div id='errorMessage' class="password-error" style="display:none;">Passwords do not match. Please try again.</div>
+                </div>
+                <div class="cu-actions">
+                    <button type="button" class="cu-btn cu-cancel" onclick="closeCreateUser()">Cancel</button>
+                    <button type="submit" class="cu-btn cu-submit">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        const createUserUrl = "{% url 'create_user' %}";
+    </script>
+    <script src="{% static 'js/script.js' %}"></script>
     
 </body>
 </html>

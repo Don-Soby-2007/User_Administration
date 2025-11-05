@@ -5,6 +5,7 @@ from .models import User
 from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.http import JsonResponse
 
 # Create your views here.
 
@@ -123,3 +124,24 @@ def admindashboard_view(request):
 def logout_view(request):
     logout(request)
     return redirect('login')
+
+
+@login_required(login_url='admin_login')
+@never_cache
+def create_user_view(request):
+
+    if request.method == 'POST' and request.user.is_admin:
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        if User.objects.filter(username=username).exists():
+            return JsonResponse({'success': False, 'message': 'Username already exists'})
+
+        if User.objects.filter(email=email).exists():
+            return JsonResponse({'success': False, 'message': 'Email already exists'})
+
+        User.objects.create_user(username=username, email=email, password=password)
+        return JsonResponse({'success': True, 'message': 'User created successfully'})
+
+    return redirect('admin_dashboard')
