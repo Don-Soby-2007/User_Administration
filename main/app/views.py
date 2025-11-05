@@ -6,6 +6,7 @@ from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.http import JsonResponse
+from django.core.paginator import Paginator
 
 # Create your views here.
 
@@ -112,8 +113,12 @@ def admindashboard_view(request):
     if query:
         users = users.filter(Q(username__icontains=query) | Q(email__icontains=query))
 
+    paginator = Paginator(users, 4)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     context = {
-        'users': users,
+        'page_obj': page_obj,
         'query': query,
         }
 

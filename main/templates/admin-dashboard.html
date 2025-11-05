@@ -45,7 +45,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for user in users %}
+                    {% for user in page_obj %}
                     
                     <tr>
                             <td>{{user.username}}</td>
@@ -63,6 +63,30 @@
                         
                 </tbody>
             </table>
+
+            <!-- Pagination Controls -->
+
+            <div style="text-align:center; margin-top:20px;">
+                {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}{% if query %}&q={{ query }}{% endif %}"
+                    class="btn-edit" style="margin-right:8px;">« Prev</a>
+                {% endif %}
+
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                    <span style="color:white; font-weight:bold; padding:6px 10px; background:#dc3545; border-radius:6px;">{{ num }}</span>
+                    {% else %}
+                    <a href="?page={{ num }}{% if query %}&q={{ query }}{% endif %}"
+                        class="btn-edit" style="margin:0 3px;">{{ num }}</a>
+                    {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}{% if query %}&q={{ query }}{% endif %}"
+                    class="btn-edit" style="margin-left:8px;">Next »</a>
+                {% endif %}
+            </div>
+
         </div>
     </div>
 
