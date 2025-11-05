@@ -53,7 +53,7 @@
                             <td>
                                 <div class="table-actions">
                                     <button class="btn-edit" onclick= "openEditUser( '{{user.id}}', '{{user.username}}', '{{user.email}}' )">Edit</button>
-                                    <button class="btn-delete" onclick="deleteUser(1)">Delete</button>
+                                    <a href='{% url "delete_user" user.id %}' class="btn-delete" onclick="return confirm('Do you want to delete {{user.username}}')">Delete</a>
                                 </div>
                             </td>
                         </tr>
@@ -124,7 +124,7 @@
                 <input type="email" name="email" id="editEmail" placeholder="Email" required>
             </div>
 
-            <div class="input-group admin-input" style="display:flex; align-items:center; gap:10px;">
+            <div class="input-group admin-input" style="display:flex; align-items:center; gap:355px;">
                 <input type="checkbox" id="editMakeAdmin" name="make_admin" style="width:18px; height:18px;">
                 <label for="editMakeAdmin" style="color:white; cursor:pointer;">Make as Admin</label>
             </div>

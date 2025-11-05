@@ -607,3 +607,6 @@ body.admin-mgmt {
     padding: 0 16px;
     height: 44px;
 }
+a{
+    text-decoration: none;
+}

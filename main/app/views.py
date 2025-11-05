@@ -176,3 +176,15 @@ def edit_user_view(request):
             return JsonResponse({'success': False, 'message': 'User does not exist'})
 
     return redirect('admin_dashboard')
+
+
+@login_required(login_url='admin_login')
+@never_cache
+def delete_user_view(request, user_id):
+    if request.user.is_admin:
+
+        user = User.objects.get(id=user_id, is_active=True)
+        user.is_active = False
+        user.save()
+
+    return redirect('admin_dashboard')
