@@ -52,7 +52,7 @@
                             <td>{{user.email}}</td>
                             <td>
                                 <div class="table-actions">
-                                    <button class="btn-edit" onclick="editUser(1)">Edit</button>
+                                    <button class="btn-edit" onclick= "openEditUser( '{{user.id}}', '{{user.username}}', '{{user.email}}' )">Edit</button>
                                     <button class="btn-delete" onclick="deleteUser(1)">Delete</button>
                                 </div>
                             </td>
@@ -101,9 +101,48 @@
             </form>
         </div>
     </div>
+
+    <!-- Edit User Modal -->
+    <div id="editUserModal" class="cu-modal-overlay" onclick="if(event.target===this) closeEditUser();">
+        <div class="cu-modal">
+            <div class="cu-modal-header">
+            <h2>Edit User</h2>
+            <button class="cu-close" onclick="closeEditUser()">×</button>
+            </div>
+
+            <form id="editUserForm" class="cu-form">
+            {% csrf_token %}
+            <input type="hidden" name="user_id" id="editUserId">
+
+            <div class="input-group admin-input">
+                <span class="input-icon">👤</span>
+                <input type="text" name="username" id="editUsername" placeholder="Username" required>
+            </div>
+
+            <div class="input-group admin-input">
+                <span class="input-icon">📧</span>
+                <input type="email" name="email" id="editEmail" placeholder="Email" required>
+            </div>
+
+            <div class="input-group admin-input" style="display:flex; align-items:center; gap:10px;">
+                <input type="checkbox" id="editMakeAdmin" name="make_admin" style="width:18px; height:18px;">
+                <label for="editMakeAdmin" style="color:white; cursor:pointer;">Make as Admin</label>
+            </div>
+
+            <div id="editError" class="password-error" style="display:none;"></div>
+
+            <div class="cu-actions">
+                <button type="button" class="cu-btn cu-cancel" onclick="closeEditUser()">Cancel</button>
+                <button type="submit" class="cu-btn cu-submit">Save Changes</button>
+            </div>
+            </form>
+        </div>
+    </div>
+
     
     <script>
         const createUserUrl = "{% url 'create_user' %}";
+        const editUserUrl = "{% url 'edit_user' %}";
     </script>
     <script src="{% static 'js/script.js' %}"></script>
     

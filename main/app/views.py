@@ -145,3 +145,34 @@ def create_user_view(request):
         return JsonResponse({'success': True, 'message': 'User created successfully'})
 
     return redirect('admin_dashboard')
+
+
+@login_required(login_url='admin_login')
+@never_cache
+def edit_user_view(request):
+    if request.method == 'POST' and request.user.is_admin:
+        user_id = request.POST.get('user_id')
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        make_admin = request.POST.get('make_admin') == 'true'
+
+        try:
+            user = User.objects.get(id=user_id, is_active=True)
+
+            if User.objects.filter(username=username).exclude(id=user_id).exists():
+                return JsonResponse({'success': False, 'message': 'Username already exists'})
+
+            if User.objects.filter(email=email).exclude(id=user_id).exists():
+                return JsonResponse({'success': False, 'message': 'Email already exists'})
+
+            user.username = username
+            user.email = email
+            user.is_admin = make_admin
+            user.save()
+
+            return JsonResponse({'success': True, 'message': 'User updated successfully'})
+
+        except User.DoesNotExist:
+            return JsonResponse({'success': False, 'message': 'User does not exist'})
+
+    return redirect('admin_dashboard')
