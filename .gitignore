@@ -1,0 +1,57 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+venv*/
+.venv/
+env/
+ENV/
+
+# Environment / secrets
+.env
+.env.*
+secrets.yml
+credentials
+*.pem
+*.key
+*.crt
+
+# Python packaging / build
+build/
+dist/
+*.egg-info/
+pip-wheel-metadata/
+
+# Tests / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Databases / logs
+*.sqlite3
+*.db
+logs/
+*.log
+
+# IDE / editor
+.vscode/
+.idea/
+*.sublime-*
+*.swp
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Node (if present)
+node_modules/
+
+# Cloud / SDK local folders
+.aws/
+.gcloud/
+
+# Ignore public assets (do not expose public directory)
+public/
