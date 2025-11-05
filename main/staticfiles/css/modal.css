@@ -1,0 +1,141 @@
+/* Create User Modal - red to white gradient, matching admin theme */
+.cu-modal-overlay {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+    backdrop-filter: blur(1px);
+}
+
+.cu-modal-overlay.open { display: flex; }
+
+.cu-modal {
+    width: 95%;
+    max-width: 560px;
+    border-radius: 14px;
+    /* Shift gradient toward white for a lighter card */
+    background: linear-gradient(200deg, #7a151c 0%, #88232d 35%, #000000 100%);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
+    padding: 18px 20px 20px;
+    transform: translateY(12px);
+    animation: cu-pop 200ms ease-out forwards;
+}
+
+@keyframes cu-pop {
+    from { opacity: 0; transform: translateY(16px) scale(0.98); }
+    to   { opacity: 1; transform: translateY(0)   scale(1); }
+}
+
+.cu-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.cu-modal-header h2 {
+    margin: 0;
+    font-size: 22px;
+    color: #fff;
+    letter-spacing: 0.5px;
+}
+
+.cu-close {
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    color: #fff;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 20px;
+    line-height: 1;
+    transition: all 0.2s ease;
+}
+
+.cu-close:hover {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.cu-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Reuse existing input-group/admin-input look; ensure contrast */
+.cu-form .input-group {
+    background-color: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.cu-form .input-group input::placeholder { color: #ddd; }
+
+.cu-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 4px;
+}
+
+.cu-btn {
+    border: none;
+    border-radius: 8px;
+    padding: 12px 18px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.cu-cancel {
+    background: rgba(0, 0, 0, 0.25);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.cu-cancel:hover { background: rgba(0, 0, 0, 0.35); }
+
+.cu-submit {
+    background: #dc3545;
+    color: #ffffff;
+    box-shadow: 0 6px 15px rgba(220, 53, 69, 0.35);
+}
+
+.cu-submit:hover {
+    background: #e04555;
+    transform: translateY(-1px);
+}
+
+@media (max-width: 480px) {
+    .cu-modal { padding: 16px; }
+}
+
+/* Password error message */
+.password-error {
+    color: #ff6b6b;
+    background-color: rgba(255, 107, 107, 0.1);
+    border: 1px solid rgba(255, 107, 107, 0.3);
+    border-radius: 6px;
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: bolder;
+    text-align: center;
+    margin-bottom: 10px;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
