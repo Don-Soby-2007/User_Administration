@@ -42,8 +42,8 @@ document.getElementById('createUserForm').addEventListener('submit', function(e)
       form.reset();
       errorDiv.style.display = 'none';
       closeCreateUser();
-      alert("User created successfully!");
-      location.reload();  
+      setTimeout(() =>{alert(data.message);
+        location.reload()}, 250);  
 
     } else {
       // Show error message
@@ -91,17 +91,19 @@ document.getElementById('editUserForm').addEventListener('submit', function(e) {
   .then(response => response.json())
   .then(data => {
     if (data.success) {
-      errorDiv.style.display = 'none';
-      alert(data.message);
-      closeEditUser();
-      location.reload();
+        errorDiv.style.display = 'none';
+        closeEditUser();
+        setTimeout(() =>{alert(data.message);
+        location.reload()}, 250);
+        
+        
     } else {
-      errorDiv.textContent = data.message;
-      errorDiv.style.display = 'block';
+        errorDiv.textContent = data.message;
+        errorDiv.style.display = 'block';
     }
   })
   .catch(() => {
-    errorDiv.textContent = 'Server error. Try again later.';
-    errorDiv.style.display = 'block';
+        errorDiv.textContent = 'Server error. Try again later.';
+        errorDiv.style.display = 'block';
   });
 });
