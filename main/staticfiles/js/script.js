@@ -25,6 +25,14 @@ document.getElementById('createUserForm').addEventListener('submit', function(e)
     errorDiv.style.display = 'block';
     return;
   }
+  const pattern = /^[A-Za-z0-9_]+$/;
+  let username = formData.get('username')
+
+  if (!pattern.test(username)){
+    errorDiv.textContent = "User name can only contains alphabets, numbers and underscores";
+    errorDiv.style.display = 'block';
+    return;
+  }
 
   fetch(createUserUrl, {
     method: 'POST',

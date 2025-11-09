@@ -45,6 +45,12 @@ def signup_view(request):
         confirm_password = request.POST.get('confirm-password')
         email = request.POST.get('email')
 
+        import re
+
+        if not re.match(r'^[A-Za-z0-9_]+$', username):
+            messages.error(request, "Username can only contain letters, numbers, and underscores.")
+            return redirect('signup')
+
         if password != confirm_password:
             messages.error(request, "Passwords do not match")
             return redirect('signup')
