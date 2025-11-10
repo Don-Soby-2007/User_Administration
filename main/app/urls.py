@@ -8,7 +8,7 @@ urlpatterns = [
     path('admin/dashboard/', views.admindashboard_view, name='admin_dashboard'),
     path('', views.dashboard_view, name='dashboard'),
     path('logout/', views.logout_view, name='logout'),
-    path('admin/create_user/', views.create_user_view, name='create_user'),
-    path('admin/edit_user/', views.edit_user_view, name='edit_user'),
-    path('admin/delete_user/<int:user_id>/', views.delete_user_view, name='delete_user'),
+    path('admin/create-user/', views.create_user_view, name='create_user'),
+    path('admin/edit-user/', views.edit_user_view, name='edit_user'),
+    path('admin/delete-user/<int:user_id>/', views.delete_user_view, name='delete_user'),
 ]
