@@ -127,23 +127,31 @@ def dashboard_view(request):
 def admindashboard_view(request):
     if not request.user.is_admin:
         return redirect('login')
+    try:
 
-    query = request.GET.get('q', '')
-    users = User.objects.filter(is_admin=False, is_active=True).order_by('-id')
+        query = request.GET.get('q', '')
+        users = User.objects.filter(is_admin=False, is_active=True).order_by('-id')
 
-    if query:
-        users = users.filter(Q(username__icontains=query) | Q(email__icontains=query))
+        if query:
+            users = users.filter(Q(username__icontains=query) | Q(email__icontains=query))
 
-    paginator = Paginator(users, 4)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
+        paginator = Paginator(users, 4)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
 
-    context = {
-        'page_obj': page_obj,
-        'query': query,
-        }
+        context = {
+            'page_obj': page_obj,
+            'query': query,
+            }
 
-    return render(request, 'admin-dashboard.html', context)
+        return render(request, 'admin-dashboard.html', context)
+
+    except DatabaseError as db_err:
+        logger.error(f"Database error in admin dashboard: {db_err}")
+        return render(request, 'error.html', {'message': 'Database error. Please try again later.'})
+    except Exception as e:
+        logger.exception(f"Unexpected admin dashboard error : {e}")
+        return render(request, 'error.html', {'message': 'An unexpected error occurred .'})
 
 
 @login_required
