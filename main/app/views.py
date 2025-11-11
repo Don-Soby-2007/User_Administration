@@ -3,35 +3,50 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache, cache_control
 from .models import User
 from django.db.models import Q
+from django.db import DatabaseError
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseServerError
 from django.core.paginator import Paginator
+import logging
 
 # Create your views here.
+
+logger = logging.getLogger(__name__)
 
 
 @never_cache
 def login_view(request):
-    if request.user.is_authenticated:
-        return redirect('dashboard')
 
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
+    try:
 
-        user = authenticate(request, username=username, password=password)
-
-        if user is not None and user.is_active:
-
-            login(request, user)
+        if request.user.is_authenticated:
             return redirect('dashboard')
 
-        else:
+        if request.method == 'POST':
+            username = request.POST.get('username')
+            password = request.POST.get('password')
 
-            return render(request, 'login.html', {'error': 'Invalid username or password'})
+            user = authenticate(request, username=username, password=password)
 
-    return render(request, 'login.html')
+            if user is not None and user.is_active:
+
+                login(request, user)
+                return redirect('dashboard')
+
+            else:
+
+                return render(request, 'login.html', {'error': 'Invalid username or password'})
+
+        return render(request, 'login.html')
+
+    except DatabaseError as db_err:
+        logger.error(f"Database error during login : {db_err}")
+        return render(request, 'error.html', {'message': 'Database error. Please try again later.'})
+
+    except Exception as e:
+        logger.exception(f"Unexpected login error {e}")
+        return render(request, 'error.html', {'message': 'Something went wrong during login. '})
 
 
 @never_cache
