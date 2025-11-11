@@ -1,0 +1,2 @@
+class UserinactiveError(Exception):
+    pass

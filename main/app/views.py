@@ -6,8 +6,9 @@ from django.db.models import Q
 from django.db import DatabaseError
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from django.http import JsonResponse, HttpResponseServerError
+from django.http import JsonResponse
 from django.core.paginator import Paginator
+from .exception import UserinactiveError
 import logging
 
 # Create your views here.
@@ -27,22 +28,27 @@ def login_view(request):
             username = request.POST.get('username')
             password = request.POST.get('password')
 
+            user_obj = User.objects.get(username=username)
+            if not user_obj.is_active:
+                raise UserinactiveError("User is blocked. Contact admin to unblock.")
+
             user = authenticate(request, username=username, password=password)
 
-            if user is not None and user.is_active:
-
-                login(request, user)
-                return redirect('dashboard')
-
-            else:
-
+            if user is None:
                 return render(request, 'login.html', {'error': 'Invalid username or password'})
+
+            login(request, user)
+            return redirect('dashboard')
 
         return render(request, 'login.html')
 
     except DatabaseError as db_err:
         logger.error(f"Database error during login : {db_err}")
         return render(request, 'error.html', {'message': 'Database error. Please try again later.'})
+
+    except UserinactiveError as inactive_err:
+        logger.error(f"Blocked user try to login : {inactive_err}")
+        return render(request, 'error.html', {'message': 'User is blocked. Contact admin to unblock'})
 
     except Exception as e:
         logger.exception(f"Unexpected login error {e}")
