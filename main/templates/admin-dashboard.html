@@ -169,6 +169,13 @@
         const editUserUrl = "{% url 'edit_user' %}";
     </script>
     <script src="{% static 'js/script.js' %}"></script>
+    {% if messages %}
+        <script>
+            {% for message in messages %}
+            alert("{{ message|escapejs }}");
+            {% endfor %}
+        </script>
+    {% endif %}
     
 </body>
 </html>

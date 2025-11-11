@@ -215,10 +215,27 @@ def edit_user_view(request):
 @login_required(login_url='admin_login')
 @never_cache
 def delete_user_view(request, user_id):
-    if request.user.is_admin:
+    if not request.user.is_admin:
+        messages.error(request, "You are not authorized to perform this action")
+        return redirect('admin_login')
 
+    try:
         user = User.objects.get(id=user_id, is_active=True)
         user.is_active = False
         user.save()
+        messages.success(request, f"User '{user.username}' deleted successfully.")
+        logger.info(f"Admin {request.user.username} deleted user ID {user_id} ({user.username}).")
+
+    except User.DoesNotExist:
+        logger.warning(f"Admin {request.user.username} tried to delete non-extistent user ID {user_id}")
+        messages.error(request, "User not found or already deleted.")
+
+    except DatabaseError as db_err:
+        logger.error(f"Database error deleting user ID {user_id}: {db_err}")
+        messages.error(request, "Database error occures while deleting user. Please try again later.")
+
+    except Exception as e:
+        logger.error(f"Unexpected error deleting user {user_id}: {e}")
+        messages.error(request, "An unexpectes error occuered while deleting the user")
 
     return redirect('admin_dashboard')
